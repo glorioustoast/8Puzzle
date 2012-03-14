@@ -175,6 +175,9 @@ vector<int> initGoal(){
 //aStar
 //======
 //Finds the optimal path from the rootBoard to the Goal.
+/*******	Our A* algorithm was adapted from the algorithm provided with 
+			the textbook. Credit goes to "Artificial Intelligence: A 
+			Systems Approach" by M. Tim Jones.							*/
 void aStar(boardNode* rootBoard, vector<int>& goal){
     
     // Priority Queue of boardNode pointers for open list
