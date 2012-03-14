@@ -15,8 +15,12 @@ using namespace std;
 
 /*global variables************************************/
 /*****************************************************/
-const int puzzleDimen = 3;
-const int puzzleSize = 9;
+#define PUZZLE_DIM 3
+#define PUZZLE_SIZE 9
+
+// Can change the above dimensions to create a larger board, but initGoal will
+// have to be modified to create a proper goal state
+
 
 /*boardNode Class*************************************/
 /*****************************************************/
@@ -42,7 +46,7 @@ public:
 //==============
 //Default Constructor
 boardNode::boardNode(){
-    board.resize(puzzleSize+1);
+    board.resize(PUZZLE_SIZE+1);
     fOfN = 0;
     hOfN = 0;
     gOfN = 0;
@@ -55,7 +59,7 @@ boardNode::boardNode(){
 //====================
 //Constructor with specified size
 boardNode::boardNode(int size){
-    board.resize(puzzleSize+1);
+    board.resize(PUZZLE_SIZE+1);
     fOfN = 0;
     hOfN = 0;
     gOfN = 0;
@@ -123,14 +127,14 @@ void printSolution(boardNode* current);
 
 int main ()
 {
-	vector<int> goal(puzzleSize+1);
+	vector<int> goal(PUZZLE_SIZE+1);
 	goal = initGoal();
     
     cout << "Goal state: " << endl;
     printGoal(goal);
     cout << endl;
     
-	boardNode startPuzzle(puzzleSize+1); // Will hold initial puzzle configuration
+	boardNode startPuzzle(PUZZLE_SIZE+1); // Will hold initial puzzle configuration
     vector<boardNode> closed;
     
     
@@ -159,7 +163,7 @@ int main ()
 //Creates a goal vector to compare to, and fills it with our goal state.
 vector<int> initGoal(){
 	
-    vector<int> goal(puzzleSize+1);
+    vector<int> goal(PUZZLE_SIZE+1);
 	goal[1]=1;
 	goal[2]=2;
 	goal[3]=3;
@@ -282,16 +286,16 @@ int manhattan(boardNode* current, vector<int>& goal){
     int val1 = 0; // holds difference of x1 and x2
     int val2 = 0; // holds difference of y1 and y2
     
-    for (int i = 0; i < puzzleSize; i++) {
+    for (int i = 0; i < PUZZLE_SIZE; i++) {
         if (current->board[currIndex] != goal[currIndex] && current->board[currIndex] != 0) {
-            x1 = i % 3;  // We mod to get the column value for x1
-            y1 = i / 3;  // We use integer division to get the row value for y1
+            x1 = i % PUZZLE_DIM;  // We mod to get the column value for x1
+            y1 = i / PUZZLE_DIM;  // We use integer division to get the row value for y1
             
             goalIndex = getGoalIndex(goal, current->board[currIndex]);
             
             // mod and integer divide as above
-            x2 = goalIndex % 3;
-            y2 = goalIndex / 3;
+            x2 = goalIndex % PUZZLE_DIM;
+            y2 = goalIndex / PUZZLE_DIM;
             
             // Next three lines peform manhattan distance calculation and total it
             val1 = x1 - x2;
@@ -332,8 +336,8 @@ void printSolution(boardNode* current){
 //the move is legal in relation to the board and the last move of the parent node
 bool isLegalMove(boardNode* current, int move, int blankIndex){
     bool legal = true;;
-    int blankx1 = blankIndex % 3;
-    int blanky1 = blankIndex / 3;
+    int blankx1 = blankIndex % PUZZLE_DIM;
+    int blanky1 = blankIndex / PUZZLE_DIM;
     int lastmove = current->lastMove;
     
     switch (move) {
@@ -343,12 +347,12 @@ bool isLegalMove(boardNode* current, int move, int blankIndex){
             }
             break;
         case R:
-            if (blankx1 == 2 || lastmove == L) {
+            if (blankx1 == (PUZZLE_DIM-1) || lastmove == L) {
                 legal = false;
             }
             break;
         case D:
-            if (blanky1 == 2 || lastmove == U) {
+            if (blanky1 == (PUZZLE_DIM-1)  || lastmove == U) {
                 legal = false;
             }
             break;
@@ -368,7 +372,7 @@ bool isLegalMove(boardNode* current, int move, int blankIndex){
 //============
 //Creates all possible states, based on the current state and legal moves
 boardNode* createState(boardNode& current, int move, int blankIndex){
-    boardNode* temp = new boardNode(puzzleSize+1);
+    boardNode* temp = new boardNode(PUZZLE_SIZE+1);
     temp->board = current.board;
     temp->gOfN = current.gOfN + 1;
     temp->parentBoard = &current;
@@ -377,16 +381,16 @@ boardNode* createState(boardNode& current, int move, int blankIndex){
     // Subtracting and adding values may seem odd; due to nature of blankIndex
     switch (move) {
         case U:
-            temp->board[blankIndex+1] = temp->board[blankIndex-2];
-            temp->board[blankIndex-2] = 0;
+            temp->board[blankIndex+1] = temp->board[(blankIndex+1)-PUZZLE_DIM];
+            temp->board[(blankIndex+1)-PUZZLE_DIM] = 0;
             break;
         case R:
             temp->board[blankIndex+1] = temp->board[blankIndex+2];
             temp->board[blankIndex+2] = 0;
             break;
         case D:
-            temp->board[blankIndex+1] = temp->board[blankIndex+4];
-            temp->board[blankIndex+4] = 0;
+            temp->board[blankIndex+1] = temp->board[(blankIndex+1)+PUZZLE_DIM];
+            temp->board[(blankIndex+1)+PUZZLE_DIM] = 0;
             break;
         case L:
             temp->board[blankIndex+1] = temp->board[blankIndex];
@@ -404,7 +408,7 @@ boardNode* createState(boardNode& current, int move, int blankIndex){
 int getGoalIndex(vector<int>& goal, int key){
     int index = 0;
     
-    for (int i = 1; i < puzzleSize+1; i++) {
+    for (int i = 1; i < PUZZLE_SIZE+1; i++) {
         if (goal[i] == key) {
             index = i;
         }
@@ -440,13 +444,33 @@ void readInPuzzle(boardNode& startPuzzle){
 //Prints the given boardNode pointer
 void printBoard(boardNode* graph)
 {
-    cout << "+---+---+---+" << endl << "|";
-	for(int i = 1; i <= puzzleSize; i++){
-		cout << " " << graph->board[i] << " |";
-		if (i % 3 == 0) { 
+    
+    for (int i = 0; i < PUZZLE_DIM; i++) {
+        if (PUZZLE_DIM > 3) {
+            cout << "+----";
+        }
+        else
+            cout << "+---";
+    }
+    cout << "+" << endl << "|";
+	for(int i = 1; i <= PUZZLE_SIZE; i++){
+        if (graph->board[i] < 10 && PUZZLE_DIM > 3) { // Handles spacing based on size of value being printed
+            cout << "  ";
+        }
+        else
+            cout << " ";
+        cout << graph->board[i] << " |";
+		if (i % PUZZLE_DIM == 0) { 
 			cout << endl;
-            cout << "+---+---+---+" << endl;
-            if (i != puzzleSize)
+            for (int i = 0; i < PUZZLE_DIM; i++) {
+                if (PUZZLE_DIM > 3) {
+                    cout << "+----";
+                }
+                else
+                  cout << "+---";
+            }
+            cout << "+" << endl;
+            if (i != PUZZLE_SIZE)
                 cout << "|";
 		}
 	}
@@ -470,13 +494,32 @@ void printBoard(boardNode* graph)
 //==========
 //Prints the Goal Board
 void printGoal(vector<int>& goal){
-    cout << "+---+---+---+" << endl << "|";
-	for(int i = 1; i <= puzzleSize; i++){
-		cout << " " << goal[i] << " |";
-		if (i % 3 == 0) { 
+    for (int i = 0; i < PUZZLE_DIM; i++) {
+        if (PUZZLE_DIM > 3) {
+            cout << "+----";
+        }
+        else
+            cout << "+---";
+    }
+    cout << "+" << endl << "|";
+	for(int i = 1; i <= PUZZLE_SIZE; i++){
+        if (goal[i] < 10 && PUZZLE_DIM > 3) { // Handles spacing based on size of value being printed
+            cout << "  ";
+        }
+        else
+            cout << " ";
+        cout << goal[i] << " |";
+		if (i % PUZZLE_DIM == 0) { 
 			cout << endl;
-            cout << "+---+---+---+" << endl;
-            if (i != puzzleSize)
+            for (int i = 0; i < PUZZLE_DIM; i++) {
+                if (PUZZLE_DIM > 3) {
+                    cout << "+----";
+                }
+                else
+                    cout << "+---";
+            }
+            cout << "+" << endl;
+            if (i != PUZZLE_SIZE)
                 cout << "|";
 		}
 	}
