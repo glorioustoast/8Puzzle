@@ -74,6 +74,8 @@ int boardNode::getfOfN(void) const{
 /*Comparison class for boardNode pointers*************/
 /*****************************************************/
 
+
+// Based on code found at cplusplus.com in relation to priority queues
 class comparison : public std::binary_function<boardNode*, boardNode*, bool>{
 public:
     bool operator() (const boardNode* lhs, const boardNode* rhs) const
@@ -368,6 +370,7 @@ boardNode* createState(boardNode& current, int move, int blankIndex){
     temp->parentBoard = &current;
     temp->lastMove = move;
     
+    // Subtracting and adding values may seem odd; due to nature of blankIndex
     switch (move) {
         case U:
             temp->board[blankIndex+1] = temp->board[blankIndex-2];
@@ -402,7 +405,7 @@ int getGoalIndex(vector<int>& goal, int key){
             index = i;
         }
     }
-    return index-1;
+    return index-1; // subtract by one to account for vector size of 10
 }
     
 //readInPuzzle
