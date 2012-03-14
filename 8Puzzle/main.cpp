@@ -234,11 +234,10 @@ void aStar(boardNode* rootBoard, vector<int>& goal){
         cout << "Starting puzzle configuration has no solution." << endl;
 }
 
-
+//Manhattan
+//==========
+//Returns the Manhattan Distance from the current tile to the goal tile
 int manhattan(boardNode* current, vector<int>& goal){
-    
-
-
     int manhatt = 0;
     int currIndex = 1;
     int goalIndex = 0;
@@ -267,6 +266,9 @@ int manhattan(boardNode* current, vector<int>& goal){
     return manhatt;
 }
 
+//printSolution
+//==============
+//Prints every state from start to goal
 void printSolution(boardNode* current){
     vector<boardNode> solution;
     
@@ -286,8 +288,11 @@ void printSolution(boardNode* current){
     cout << "Number of moves: " << solution.size()-1 << endl;
 }
 
+//isLegalMove
+//============
+//Analyzes a given move and current position and returns a bool value indicating whether or not
+//the move is legal.
 bool isLegalMove(boardNode* current, int move, int blankIndex){
-
     bool legal = true;;
     int blankx1 = blankIndex % 3;
     int blanky1 = blankIndex / 3;
@@ -322,6 +327,9 @@ bool isLegalMove(boardNode* current, int move, int blankIndex){
     return legal;
 }
 
+//createState
+//============
+//Creates all possible states, based on the current state and legal moves
 boardNode* createState(boardNode& current, int move, int blankIndex){
     boardNode* temp = new boardNode(puzzleSize+1);
     temp->board = current.board;
@@ -352,6 +360,9 @@ boardNode* createState(boardNode& current, int move, int blankIndex){
     return temp;    
 }
 
+//getGoalIndex
+//=============
+//Returns the index of the goal for any given tile
 int getGoalIndex(vector<int>& goal, int key){
     int index = 0;
     
