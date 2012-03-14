@@ -196,27 +196,39 @@ void aStar(boardNode* rootBoard, vector<int>& goal){
     
     while (open.size() != 0 && searches < 4000) {
         
-        // get the best board on open
+        // get the best board on open and then remove it
         current = open.top();
         open.pop();
+        
+        // Place current onto closed
         closed.push_back(current);
         
-    
+        // Check to see if current is the goal
         foundGoal = checkGoal(current, goal);
         
-        
+        // Expand child nodes if goal not found
         if (foundGoal == false) {
-            blankIndex = getGoalIndex(current->board, 0);
             
+            blankIndex = getGoalIndex(current->board, 0); // Get the position of the blank
+            
+            // For all possible moves
             for (int i = U; i <= L; i++) {
+                
+                // Check to see if the move is legal
                 legalMove = isLegalMove(current, i, blankIndex);
+                
+                // If it is legal
                 if (legalMove == true){
-                    searches++;
+                    
+                    //  Create a new node with the legal move
                     next = createState(*current, i, blankIndex);
-                    next->hOfN = manhattan(next, goal);
-                    next->fOfN = next->hOfN + next->gOfN;
+                    next->hOfN = manhattan(next, goal);          // compute manhattan distance
+                    next->fOfN = next->hOfN + next->gOfN;        // compute f(n)
+                    searches++; 
         
                     containsNext = false;
+                    
+                    // Check to see if closed contains next
                     for (int i = 0; i < closed.size(); i++) {
                         if (closed[i]->board == next->board) {
                             containsNext = true;

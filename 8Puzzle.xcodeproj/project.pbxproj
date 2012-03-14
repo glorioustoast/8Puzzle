@@ -28,7 +28,7 @@
 		43A3FCDD1510269500268D4C /* 8Puzzle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 8Puzzle; sourceTree = BUILT_PRODUCTS_DIR; };
 		43A3FCE11510269500268D4C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		43A3FCE31510269500268D4C /* _Puzzle.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = _Puzzle.1; sourceTree = "<group>"; };
-		43A3FCEE15108A8900268D4C /* 8puzzle.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 8puzzle.txt; path = "../../../../../../../Library/Developer/Xcode/DerivedData/8Puzzle-cdybadgsfxuxdgckwwywbdivkkdo/Build/Products/Debug/8puzzle.txt"; sourceTree = "<group>"; };
+		A6149A0615109867003D6E46 /* 8puzzle.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 8puzzle.txt; path = "../../../Library/Developer/Xcode/DerivedData/8Puzzle-cydyrckpzuscqbcbpdlpzindjdmt/Build/Products/Debug/8puzzle.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				43A3FCE11510269500268D4C /* main.cpp */,
-				43A3FCEE15108A8900268D4C /* 8puzzle.txt */,
+				A6149A0615109867003D6E46 /* 8puzzle.txt */,
 				43A3FCE31510269500268D4C /* _Puzzle.1 */,
 			);
 			path = 8Puzzle;
