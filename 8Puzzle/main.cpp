@@ -179,18 +179,18 @@ void aStar(boardNode* rootBoard, vector<int>& goal){
     // Priority Queue of boardNode pointers for open list
     priority_queue<boardNode*, vector<boardNode*>, comparison > open;
     
-    // Vector of boardnoes for closed list
+    // Vector of boardNodes for closed list
     vector<boardNode*> closed;
     
     // Pointers for aStar algorithm
     boardNode *current, *next, *previous;
     
-    bool foundGoal; // Bool for whether goal state has been found
-    bool legalMove; // Bool for wheter a tile move is legal 
-    bool containsNext = false; // Used as a control flag in aStar
-    int  blankIndex; // Holds position of blank relative to vector index
-    int searches = 0; // Keeps track of number of nodes expanded; used to detect
-                      // an unsolveable starting puzzle configuration
+    bool foundGoal;				// Bool for whether goal state has been found
+    bool legalMove;				// Bool for wheter a tile move is legal 
+    bool containsNext = false;	// Used as a control flag in aStar
+    int  blankIndex;			// Holds position of blank relative to vector index
+    int searches = 0;			// Keeps track of number of nodes expanded; used to detect
+								// an unsolveable starting puzzle configuration
     
     
     open.push(rootBoard);
