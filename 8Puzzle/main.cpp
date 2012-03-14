@@ -404,6 +404,9 @@ void readInPuzzle(boardNode& startPuzzle){
     }
 }
 
+//printBoard
+//===========
+//Prints the given boardNode
 void printBoard(boardNode* graph)
 {
     cout << "+---+---+---+" << endl << "|";
