@@ -260,24 +260,35 @@ void aStar(boardNode* rootBoard, vector<int>& goal){
 //==========
 //Returns the Manhattan Distance from the current tile to the goal tile
 int manhattan(boardNode* current, vector<int>& goal){
-    int manhatt = 0;
-    int currIndex = 1;
+    int manhatt = 0; // manhattan distance total
+    
+    // Indexes for current node and goal state relative to vector positions
+    int currIndex = 1; 
     int goalIndex = 0;
+    
+    // x and y values for current node tile
     int x1 = 0;
     int y1 = 0;
+    
+    // x and y values for goal node tile
     int x2 = 0;
     int y2 = 0;
-    int val1 = 0;
-    int val2 = 0;
+
+    int val1 = 0; // holds difference of x1 and x2
+    int val2 = 0; // holds difference of y1 and y2
     
     for (int i = 0; i < puzzleSize; i++) {
         if (current->board[currIndex] != goal[currIndex] && current->board[currIndex] != 0) {
             x1 = i % 3;  // We mod to get the column value for x1
             y1 = i / 3;  // We use integer division to get the row value for y1
+            
             goalIndex = getGoalIndex(goal, current->board[currIndex]);
+            
+            // mod and integer divide as above
             x2 = goalIndex % 3;
             y2 = goalIndex / 3;
             
+            // Next three lines peform manhattan distance calculation and total it
             val1 = x1 - x2;
             val2 = y1 - y2;
             manhatt += abs(val1) + abs(val2);
