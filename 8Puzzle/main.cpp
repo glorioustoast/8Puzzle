@@ -431,6 +431,17 @@ void printBoard(boardNode* graph)
                 cout << "|";
 		}
 	}
+	cout<<"Moved: ";
+	switch(graph->lastMove){
+		case U:
+			cout<<"UP\n"; break;
+		case R:
+			cout<<"RIGHT\n"; break;
+		case L:
+			cout<<"LEFT\n"; break;
+		case D:
+			cout<<"DOWN\n"; break;
+	}
 }
 
 
