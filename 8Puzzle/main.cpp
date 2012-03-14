@@ -298,7 +298,7 @@ void printSolution(boardNode* current){
         
     }
     solution.push_back(current);
-    
+    cout<<"-------------------------------------\n";
     cout << "The optimal solution is: " << endl;
     for (int i = (int)solution.size()-1; i >= 0; i--) {
         printBoard(solution[i]);
@@ -317,8 +317,6 @@ bool isLegalMove(boardNode* current, int move, int blankIndex){
     int blankx1 = blankIndex % 3;
     int blanky1 = blankIndex / 3;
     int lastmove = current->lastMove;
-    
-    
     switch (move) {
         case U:
             if (blanky1 == 0 || lastmove == D) {
@@ -431,16 +429,17 @@ void printBoard(boardNode* graph)
                 cout << "|";
 		}
 	}
-	cout<<"Moved: ";
 	switch(graph->lastMove){
 		case U:
-			cout<<"UP\n"; break;
+			cout<<"Moved: "<<"UP\n"; break;
 		case R:
-			cout<<"RIGHT\n"; break;
+			cout<<"Moved: "<<"RIGHT\n"; break;
 		case L:
-			cout<<"LEFT\n"; break;
+			cout<<"Moved: "<<"LEFT\n"; break;
 		case D:
-			cout<<"DOWN\n"; break;
+			cout<<"Moved: "<<"DOWN\n"; break;
+		default:
+			break;
 	}
 }
 
