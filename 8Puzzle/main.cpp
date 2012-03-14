@@ -106,7 +106,6 @@ enum moves {U, R, D, L};
 void readInPuzzle(boardNode& startPuzzle);
 vector<int> initGoal();
 void printBoard(boardNode* graph);
-void printBoardAlt(boardNode &graph);
 void aStar(boardNode* rootBoard, vector<int>& goal);
 int manhattan(boardNode* current, vector<int>& goal);
 int getGoalIndex(vector<int>& goal, int key);
@@ -279,18 +278,18 @@ int manhattan(boardNode* current, vector<int>& goal){
 //==============
 //Prints every state from start to goal
 void printSolution(boardNode* current){
-    vector<boardNode> solution;
+    vector<boardNode*> solution;
     
     while (current->parentBoard != NULL) {
-        solution.push_back(*current);
+        solution.push_back(current);
         current = current->parentBoard;
         
     }
-    solution.push_back(*current);
+    solution.push_back(current);
     
     cout << "The optimal solution is: " << endl;
     for (int i = (int)solution.size()-1; i >= 0; i--) {
-        printBoardAlt(solution[i]);
+        printBoard(solution[i]);
         cout << endl;
     }
     
@@ -424,22 +423,6 @@ void printBoard(boardNode* graph)
 	}
 }
 
-//printBoardAlt
-//==============
-//Prints the given boardNode
-void printBoardAlt(boardNode &graph)
-{
-    cout << "+---+---+---+" << endl << "|";
-	for(int i = 1; i <= puzzleSize; i++){
-		cout << " " << graph.board[i] << " |";
-		if (i % 3 == 0) { 
-			cout << endl;
-            cout << "+---+---+---+" << endl;
-            if (i != puzzleSize)
-                cout << "|";
-		}
-	}
-}
 
 //printGoal
 //==========
