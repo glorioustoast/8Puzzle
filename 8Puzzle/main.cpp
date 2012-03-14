@@ -382,10 +382,9 @@ int getGoalIndex(vector<int>& goal, int key){
     return index-1;
 }
     
-
-
-
-
+//readInPuzzle
+//=============
+//Reads a start state from a text file.
 void readInPuzzle(boardNode& startPuzzle){
     ifstream fin;
     int val;
