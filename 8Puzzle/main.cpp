@@ -231,16 +231,18 @@ void aStar(boardNode* rootBoard, vector<int>& goal){
                     // Check to see if closed contains next
                     for (int i = 0; i < closed.size(); i++) {
                         if (closed[i]->board == next->board) {
-                            containsNext = true;
-                            previous = closed[i];
+                            containsNext = true;  
+                            previous = closed[i]; // Set previous to state in closed matching next
                             if (next->fOfN < previous->fOfN) {
-                                closed.erase(closed.begin() + i);
-                                open.push(next);
+                                closed.erase(closed.begin() + i); // Remove previous from closed
+                                open.push(next); // Insert next into open
                             }
                         }
                     }
+                    
+                    // If closed did not contain next
                     if (containsNext == false) {
-                        open.push(next);
+                        open.push(next); // Add next to open
                     }
                 }
             }
@@ -249,7 +251,7 @@ void aStar(boardNode* rootBoard, vector<int>& goal){
             break;
     }
     if (foundGoal == true) 
-        printSolution(current);
+        printSolution(current); // Print out the solution
     else
         cout << "Starting puzzle configuration has no solution." << endl;
 }
