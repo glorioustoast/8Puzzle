@@ -329,12 +329,13 @@ void printSolution(boardNode* current){
 //isLegalMove
 //============
 //Analyzes a given move and current position and returns a bool value indicating whether or not
-//the move is legal.
+//the move is legal in relation to the board and the last move of the parent node
 bool isLegalMove(boardNode* current, int move, int blankIndex){
     bool legal = true;;
     int blankx1 = blankIndex % 3;
     int blanky1 = blankIndex / 3;
     int lastmove = current->lastMove;
+    
     switch (move) {
         case U:
             if (blanky1 == 0 || lastmove == D) {
@@ -449,6 +450,7 @@ void printBoard(boardNode* graph)
                 cout << "|";
 		}
 	}
+    
 	switch(graph->lastMove){
 		case U:
 			cout<<"Moved: "<<"UP\n"; break;
