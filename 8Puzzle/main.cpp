@@ -193,7 +193,8 @@ void aStar(boardNode* rootBoard, vector<int>& goal){
 								// an unsolveable starting puzzle configuration
     
     
-    open.push(rootBoard);
+    open.push(rootBoard); // Adds start state to the open list
+    
     while (open.size() != 0 && searches < 4000) {
         
         // get the best board on open
