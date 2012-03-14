@@ -146,7 +146,12 @@ int main ()
     return 0;
 }
 
+/*Function Definitions********************************/
+/*****************************************************/
 
+//initGoal
+//=========
+//Creates a goal vector to compare to, and fills it with our goal state.
 vector<int> initGoal(){
 	
     vector<int> goal(puzzleSize+1);
@@ -162,10 +167,10 @@ vector<int> initGoal(){
     return goal;
 }
 
-
+//aStar
+//======
+//Finds the optimal path from the rootBoard to the Goal.
 void aStar(boardNode* rootBoard, vector<int>& goal){
-    
-
     priority_queue<boardNode*, vector<boardNode*>, comparison > open;
     vector<boardNode*> closed;
     boardNode *current, *next, *previous;
