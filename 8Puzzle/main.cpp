@@ -384,6 +384,11 @@ int getGoalIndex(vector<int>& goal, int key){
 }
     
 
+//=======
+//readInPuzzle
+//=============
+//Reads a start state from a text file.
+
 void readInPuzzle(boardNode& startPuzzle){
     ifstream fin;
     int val;
@@ -402,6 +407,9 @@ void readInPuzzle(boardNode& startPuzzle){
     }
 }
 
+//printBoard
+//===========
+//Prints the given boardNode pointer
 void printBoard(boardNode* graph)
 {
     cout << "+---+---+---+" << endl << "|";
@@ -416,6 +424,9 @@ void printBoard(boardNode* graph)
 	}
 }
 
+//printBoardAlt
+//==============
+//Prints the given boardNode
 void printBoardAlt(boardNode &graph)
 {
     cout << "+---+---+---+" << endl << "|";
@@ -430,6 +441,9 @@ void printBoardAlt(boardNode &graph)
 	}
 }
 
+//printGoal
+//==========
+//Prints the Goal Board
 void printGoal(vector<int>& goal){
     cout << "+---+---+---+" << endl << "|";
 	for(int i = 1; i <= puzzleSize; i++){
@@ -443,7 +457,9 @@ void printGoal(vector<int>& goal){
 	}
 }
 
-
+//checkGoal
+//==========
+//Checks to see if the current board state is the goal state and returns a bool
 bool checkGoal(boardNode* current, vector<int>& goal){
 	bool success = false;
 	if (current->board == goal)
