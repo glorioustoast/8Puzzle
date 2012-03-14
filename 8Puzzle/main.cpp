@@ -384,9 +384,6 @@ int getGoalIndex(vector<int>& goal, int key){
 }
     
 
-
-
-
 void readInPuzzle(boardNode& startPuzzle){
     ifstream fin;
     int val;
