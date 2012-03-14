@@ -106,13 +106,13 @@ enum moves {U, R, D, L};
 void readInPuzzle(boardNode& startPuzzle);
 vector<int> initGoal();
 void printBoard(boardNode* graph);
-void printBoard2(boardNode &graph);
+void printBoardAlt(boardNode &graph);
 void aStar(boardNode* rootBoard, vector<int>& goal);
 int manhattan(boardNode* current, vector<int>& goal);
 int getGoalIndex(vector<int>& goal, int key);
 bool isLegalMove(boardNode* current, int move, int blankIndex);
 boardNode* createState(boardNode& current, int move, int blankIndex);
-//void buildBoard(vector<int>& graph);
+void printGoal(vector<int>& goal);
 bool checkGoal(boardNode* current, vector<int>& goal);
 void printSolution(boardNode* current);
 /****************************************************/
@@ -123,8 +123,12 @@ void printSolution(boardNode* current);
 int main ()
 {
 	vector<int> goal(puzzleSize+1);
-	goal=initGoal();
-	
+	goal = initGoal();
+    
+    cout << "Goal state: " << endl;
+    printGoal(goal);
+    cout << endl;
+    
 	boardNode startPuzzle(puzzleSize+1); // Will hold initial puzzle configuration
     vector<boardNode> closed;
     
@@ -275,7 +279,7 @@ void printSolution(boardNode* current){
     
     cout << "The optimal solution is: " << endl;
     for (int i = (int)solution.size()-1; i >= 0; i--) {
-        printBoard2(solution[i]);
+        printBoardAlt(solution[i]);
         cout << endl;
     }
     
@@ -395,11 +399,24 @@ void printBoard(boardNode* graph)
 	}
 }
 
-void printBoard2(boardNode &graph)
+void printBoardAlt(boardNode &graph)
 {
     cout << "+---+---+---+" << endl << "|";
 	for(int i = 1; i <= puzzleSize; i++){
 		cout << " " << graph.board[i] << " |";
+		if (i % 3 == 0) { 
+			cout << endl;
+            cout << "+---+---+---+" << endl;
+            if (i != puzzleSize)
+                cout << "|";
+		}
+	}
+}
+
+void printGoal(vector<int>& goal){
+    cout << "+---+---+---+" << endl << "|";
+	for(int i = 1; i <= puzzleSize; i++){
+		cout << " " << goal[i] << " |";
 		if (i % 3 == 0) { 
 			cout << endl;
             cout << "+---+---+---+" << endl;
