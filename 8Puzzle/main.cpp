@@ -425,6 +425,7 @@ void readInPuzzle(boardNode& startPuzzle){
         startPuzzle.board[counter] = val;
         counter++;
     }
+	fin.close();
 }
 
 //printBoard
