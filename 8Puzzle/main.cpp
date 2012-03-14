@@ -2,31 +2,24 @@
 //  main.cpp
 //  8Puzzle
 //
-//  Created by Atticus Wright on 3/5/12.
+//  Created by Atticus Wright and Patrick Lindsay on 3/5/12.
 //  Copyright (c) 2012 University of North Alabama. All rights reserved.
-//
-
-//
-//  main.cpp
-//  8Puzzle
-//
-//  Created by Patrick Lindsay on 3/5/12.
-//  Copyright (c) 2012 Patrick Lindsay. All rights reserved.
 //
 
 #include <iostream>
 #include <vector>
-#include <stack>
 #include <queue>
 #include <fstream>
 #include <functional>
 using namespace std;
 
-// global variables
+/*global variables************************************/
+/*****************************************************/
 const int puzzleDimen = 3;
 const int puzzleSize = 9;
 
-
+/*boardNode Class*************************************/
+/*****************************************************/
 class boardNode {
 public:
     boardNode();
@@ -42,7 +35,12 @@ public:
     boardNode* parentBoard;
 };
 
-// boardNode Class functions
+/*boardNode Class functions***************************/
+/*****************************************************/
+
+//boardNode()
+//==============
+//Default Constructor
 boardNode::boardNode(){
     board.resize(puzzleSize+1);
     fOfN = 0;
@@ -53,6 +51,9 @@ boardNode::boardNode(){
     
 }
 
+//boardNode(int size)
+//====================
+//Constructor with specified size
 boardNode::boardNode(int size){
     board.resize(puzzleSize+1);
     fOfN = 0;
@@ -62,12 +63,17 @@ boardNode::boardNode(int size){
     parentBoard = NULL;
 }
 
+//getfOfN
+//========
+//Getter for the boardNode's f(n)
 int boardNode::getfOfN(void) const{
         return this->fOfN;
 }
 
 
-// Comparison class for boardNode pointers
+/*Comparison class for boardNode pointers*************/
+/*****************************************************/
+
 class comparison : public std::binary_function<boardNode*, boardNode*, bool>{
 public:
     bool operator() (const boardNode* lhs, const boardNode* rhs) const
@@ -76,7 +82,7 @@ public:
         return (lhs->getfOfN() > rhs->getfOfN() );
     }
 };
-
+/*
 // Comparison class for boardNodes
 class comparison1 {
 public:
@@ -84,15 +90,21 @@ public:
     {
         return (lhs.fOfN > rhs.fOfN);
     }
-};
+};*/
 
+/*moves***********************************************/
+/*****************************************************/
+//Enumerated types for possible moves
 enum moves {U, R, D, L};
 
-
+/*****************************************************/
+/*******************End of Headers********************/
+/*****************************************************/
 
 
 /*Function Prototypes********************************/
 void readInPuzzle(boardNode& startPuzzle);
+vector<int> initGoal();
 void printBoard(boardNode* graph);
 void printBoard2(boardNode &graph);
 void aStar(boardNode* rootBoard, vector<int>& goal);
@@ -110,18 +122,9 @@ void printSolution(boardNode* current);
 
 int main ()
 {
-
-    vector<int> goal(puzzleSize+1);
-	goal[1]=1;
-	goal[2]=2;
-	goal[3]=3;
-	goal[4]=8;
-	goal[5]=0;
-	goal[6]=4;
-	goal[7]=7;
-	goal[8]=6;
-	goal[9]=5;
-    
+	vector<int> goal(puzzleSize+1);
+	goal=initGoal();
+	
 	boardNode startPuzzle(puzzleSize+1); // Will hold initial puzzle configuration
     vector<boardNode> closed;
     
@@ -143,6 +146,21 @@ int main ()
     return 0;
 }
 
+
+vector<int> initGoal(){
+	
+    vector<int> goal(puzzleSize+1);
+	goal[1]=1;
+	goal[2]=2;
+	goal[3]=3;
+	goal[4]=8;
+	goal[5]=0;
+	goal[6]=4;
+	goal[7]=7;
+	goal[8]=6;
+	goal[9]=5;
+    return goal;
+}
 
 
 void aStar(boardNode* rootBoard, vector<int>& goal){
@@ -348,6 +366,7 @@ void readInPuzzle(boardNode& startPuzzle){
     fin.open("8puzzle.txt");
     if (fin.fail()) {
         cout << "Input file opening failed.\n";
+		exit(1);
     }
     
     while (! fin.eof()) {
