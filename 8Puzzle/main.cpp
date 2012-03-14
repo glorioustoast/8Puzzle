@@ -7,7 +7,8 @@
 //
 //  Program to optimally solve any solvable instance of the classic 8 Puzzle.
 //  Can change the below dimensions to create a larger board, but initGoal will
-//  have to be modified to create a proper goal state
+//  have to be modified to create a proper goal state. Reads in the start state
+//  from a file that must be named 8puzzle.txt.
 
 #include <iostream>
 #include <vector>
