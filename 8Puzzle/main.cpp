@@ -5,12 +5,14 @@
 //  Created by Atticus Wright and Patrick Lindsay on 3/5/12.
 //  Copyright (c) 2012 University of North Alabama. All rights reserved.
 //
+//  Program to optimally solve any solvable instance of the classic 8 Puzzle.
+//  Can change the below dimensions to create a larger board, but initGoal will
+//  have to be modified to create a proper goal state
 
 #include <iostream>
 #include <vector>
 #include <queue>
 #include <fstream>
-#include <functional>
 using namespace std;
 
 /*global variables************************************/
@@ -18,8 +20,6 @@ using namespace std;
 #define PUZZLE_DIM 3
 #define PUZZLE_SIZE 9
 
-// Can change the above dimensions to create a larger board, but initGoal will
-// have to be modified to create a proper goal state
 
 
 /*boardNode Class*************************************/
